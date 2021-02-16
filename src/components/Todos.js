@@ -4,11 +4,11 @@ import { useEffect } from 'react';
 import { connect } from 'react-redux';
 import { fetchTodos } from '../store/actions/todoEpic';
 
-function Todos(props) {
+function Todos({fetchTodos, ...props}) {
 
   useEffect(() => {
-    props.fetchTodos();
-  }, []);
+    fetchTodos();
+  }, [fetchTodos]);
 
   return (
     props.todoReducer.todos.map((todo) => (

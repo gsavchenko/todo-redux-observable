@@ -5,7 +5,7 @@ const initialState = {
   todo: {}
 }
 
-export default function(state = initialState, action) {
+export default function todoReducer(state = initialState, action) {
   switch(action.type) {
     case FETCH_TODOS_FULFILLED:
       return {
