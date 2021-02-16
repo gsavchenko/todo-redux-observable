@@ -3,9 +3,11 @@ import { ofType } from 'redux-observable';
 import { ajax } from 'rxjs/ajax';
 import { mergeMap, map, tap } from 'rxjs/operators';
 
+// action creators
 export const fetchTodos = () => ({ type: FETCH_TODOS });
 export const fetchTodosFullfilled = payload => ({ type: FETCH_TODOS_FULFILLED, payload });
 
+// epic
 export const fetchTodosEpic = action$ => action$.pipe(
   ofType(FETCH_TODOS),
   mergeMap(action =>

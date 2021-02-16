@@ -8,10 +8,10 @@ function Todos(props) {
 
   useEffect(() => {
     props.fetchTodos();
-  }, [props]);
+  }, []);
 
   return (
-    props.todos.map((todo) => (
+    props.todoReducer.todos.map((todo) => (
       <TodoItem
         key={todo.id}
         todo={todo}
@@ -26,4 +26,4 @@ Todos.prototype = {
   todos: PropType.array.isRequired
 }
 
-export default connect(null, { fetchTodos })(Todos);
+export default connect((props) => (props), { fetchTodos })(Todos);
