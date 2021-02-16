@@ -1,10 +1,14 @@
 import TodoItem from './TodoItem';
 import PropType from 'prop-types';
+import { useEffect } from 'react';
+import { connect } from 'react-redux';
+import { fetchTodos } from '../store/actions/todoEpic';
 
 function Todos(props) {
-  // const toggleComplete = (event) => {
-  //   console.log(event);
-  // }
+
+  useEffect(() => {
+    props.fetchTodos();
+  }, [props]);
 
   return (
     props.todos.map((todo) => (
@@ -22,4 +26,4 @@ Todos.prototype = {
   todos: PropType.array.isRequired
 }
 
-export default Todos;
+export default connect(null, { fetchTodos })(Todos);

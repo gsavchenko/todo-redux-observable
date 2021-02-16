@@ -1,0 +1,3 @@
+export const FETCH_TODOS = 'FETCH_TODOS';
+export const FETCH_TODOS_FULFILLED = 'FETCH_TODOS_FULFILLED';
+export const NEW_TODO = 'NEW_TODO';

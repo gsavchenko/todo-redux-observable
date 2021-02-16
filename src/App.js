@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react';
 import { BrowserRouter, Route } from 'react-router-dom';
 import './App.css';
 import Todos from './components/Todos';
@@ -6,6 +6,8 @@ import Header from './components/Header';
 import AddTodo from './components/AddTodo';
 import { v4 as uuid } from 'uuid';
 import About from './components/About';
+import { Provider } from 'react-redux';
+import configureStore from './store/store';
 
 function App() {
   const [todos, setTodo] = useState([
@@ -25,14 +27,6 @@ function App() {
       completed: false
     },
   ]);
-
-  // #1 add call to json place holder
-  useEffect(() => {
-    const query = `?_limit=10`
-    fetch(`https://jsonplaceholder.typicode.com/todos${query}`)
-    .then(response => response.json())
-    .then(json => json.map(item =>  setTodo(todos => [...todos, item])));
-  }, []);
 
   function toggleComplete(id) {
     setTodo(todos => todos.map(todo =>
@@ -57,22 +51,24 @@ function App() {
   }
 
   return (
-    <BrowserRouter>
-      <div>
-        <Header/>
-        <Route exact path="/" render={props => (
-          <React.Fragment>
-            <AddTodo
-              addTodo={addTodo}/>
-            <Todos
-              todos={todos}
-              toggleComplete={toggleComplete}
-              deleteTodo={deleteTodo}/>
-          </React.Fragment>
-        )} />
-        <Route path="/about" component={About} />
-      </div>
-    </BrowserRouter>
+    <Provider store={configureStore()}>
+      <BrowserRouter>
+        <div>
+          <Header/>
+          <Route exact path="/" render={props => (
+            <React.Fragment>
+              <AddTodo
+                addTodo={addTodo}/>
+              <Todos
+                todos={todos}
+                toggleComplete={toggleComplete}
+                deleteTodo={deleteTodo}/>
+            </React.Fragment>
+          )} />
+          <Route path="/about" component={About} />
+        </div>
+      </BrowserRouter>
+    </Provider>
   );
 }
 
