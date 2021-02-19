@@ -1,10 +1,11 @@
 import { combineReducers } from 'redux';
 import todoReducer from './todoReducer';
 import { combineEpics } from 'redux-observable';
-import { fetchTodosEpic } from '../actions/todoEpic';
+import { fetchTodosEpic, newTodoEpic } from '../actions/todoEpic';
 
 export const rootEpic = combineEpics(
-  fetchTodosEpic
+  fetchTodosEpic,
+  newTodoEpic
 );
 
 export const rootReducer = combineReducers({

@@ -8,6 +8,10 @@ import { v4 as uuid } from 'uuid';
 import About from './components/About';
 import { Provider } from 'react-redux';
 import configureStore from './store/store';
+// import * as rxjs from 'rxjs';
+// import * as operators from 'rxjs/operators';
+import { connect } from 'react-redux';
+import { newTodo } from './store/actions/todoEpic';
 
 /*  Introduction - What are streams of values?
  *  In JavaScript applications almost everything is asynchronous:
@@ -17,7 +21,7 @@ import configureStore from './store/store';
  * 
  *  A few examples of streams of values over time: 
 */
-function App() {
+let App = ({ newTodo, ...props}) => {
   const [todos, setTodo] = useState([]);
 
   useEffect(() => {
@@ -69,7 +73,41 @@ function App() {
     // const click$ = rxjs.fromEvent(document, 'click');
     // click$.subscribe(event => console.log(event));
 
+    // fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    // .then((response) => response.json())
+    // .then((json) => console.log(json));
+    
+    // const http$ = rxjs.Observable.create(observer => {
+    //   fetch('https://jsonplaceholder.typicode.com/todos?_limit=10')
+    //   .then(response => response.json())
+    //   .then(todos => {
+    //     observer.next(todos);
+    //     observer.complete();
+    //   })
+    //   .catch(error => observer.error(error));
+    // });
+
+    // http$.subscribe(
+    //   todos => console.log(todos),
+    //   rxjs.noop,
+    //   console.log('completed')
+    // );
+
+    // const todos$ = http$.pipe(operators.map(todo => todo));
+    // todos$.subscribe(todo => console.log(todo));
   }, []);
+
+  // function createHttpObservable(url) {
+  //   return rxjs.Observable.create(observer => {
+  //     fetch(url)
+  //     .then(response => response.json())
+  //     .then(todos => {
+  //       observer.next(todos);
+  //       observer.complete();
+  //     })
+  //     .catch(error => observer.error(error));
+  //   });
+  // }
 
   function toggleComplete(id) {
     setTodo(todos => todos.map(todo =>
@@ -84,17 +122,17 @@ function App() {
   }
 
   function addTodo(title) {
-    const newTodo = {
+    const todo = {
       id: uuid(),
       title,
       completed: false
     }
     
-    setTodo(todos => [...todos, newTodo]);
+    //setTodo(todos => [...todos, todo]);
+    newTodo(todo);
   }
 
   return (
-    <Provider store={configureStore()}>
       <BrowserRouter>
         <div>
           <Header/>
@@ -111,8 +149,18 @@ function App() {
           <Route path="/about" component={About} />
         </div>
       </BrowserRouter>
-    </Provider>
   );
 }
 
-export default App;
+App = connect(props => props, { newTodo })(App);
+
+
+const AppWithStore = () => {
+  return(
+    <Provider store={configureStore()}>
+      <App />
+    </Provider>
+  )
+}
+
+export default AppWithStore;

@@ -1,4 +1,4 @@
-import { FETCH_TODOS, NEW_TODO, FETCH_TODOS_FULFILLED } from '../actions/types';
+import { NEW_TODO_FULFILLED, FETCH_TODOS_FULFILLED } from '../actions/types';
 import { v4 as uuid } from 'uuid';
 
 const initialState = {
@@ -29,7 +29,12 @@ export default function todoReducer(state = initialState, action) {
         ...state,
         todos: action.payload
       }
-    
+    case NEW_TODO_FULFILLED:
+      return {
+        ...state,
+        todos: [...state.todos, action.payload],
+        todo: action.payload
+      }
     default:
       return state;
   }

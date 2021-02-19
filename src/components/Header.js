@@ -26,4 +26,4 @@ const link = {
   fontWeight: 'regular' 
 }
 
-export default Header
+export default Header;

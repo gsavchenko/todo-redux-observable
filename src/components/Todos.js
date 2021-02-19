@@ -11,7 +11,7 @@ function Todos({fetchTodos, ...props}) {
   }, [fetchTodos]);
 
   return (
-    props.todoReducer.todos.map((todo) => (
+    props.todos.map((todo) => (
       <TodoItem
         key={todo.id}
         todo={todo}
@@ -26,4 +26,8 @@ Todos.prototype = {
   todos: PropType.array.isRequired
 }
 
-export default connect((props) => (props), { fetchTodos })(Todos);
+const mapStateToProps = state => ({
+  todos: state.todoReducer.todos
+});
+
+export default connect(mapStateToProps, { fetchTodos })(Todos);
