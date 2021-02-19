@@ -36,16 +36,3 @@ export const newTodoEpic = action$ => action$.pipe(
     )
   )
 );
-
-// export const newTodosEpic = action$ => action$.pipe(
-//   ofType(NEW_TODO),
-//   fromFetch('https://jsonplaceholder.typicode.com/todos', {
-//     method: 'POST',
-//     headers: {
-//       'content-type': 'application/json'
-//     },
-//     body: '{ "id": 111, "title": "test", "completed": false }'
-//   }).pipe(
-//     map(response => newTodoFullfilled(response))
-//   )
-// );
