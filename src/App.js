@@ -21,7 +21,7 @@ import { newTodo } from './store/actions/todoEpic';
  * 
  *  A few examples of streams of values over time: 
 */
-let App = ({ newTodo, ...props}) => {
+let App = ({ newTodo }) => {
   const [todos, setTodo] = useState([]);
 
   useEffect(() => {
@@ -152,7 +152,7 @@ let App = ({ newTodo, ...props}) => {
   );
 }
 
-App = connect(props => props, { newTodo })(App);
+App = connect(null, { newTodo })(App);
 
 
 const AppWithStore = () => {
